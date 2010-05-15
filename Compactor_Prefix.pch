@@ -1,0 +1,13 @@
+//
+// Prefix header for all source files of the 'Compactor' target in the 'Compactor' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
+
+#ifdef DEBUG
+	#define DLog(...) NSLog(@"%s %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__])
+#else
+	#define DLog(...) do { } while (0)
+#endif
