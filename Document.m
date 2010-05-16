@@ -72,9 +72,12 @@
 	[self hideLoading];
 	
 	if (!result && outError != NULL) {
+		NSLog(@"Compact Error: @%", errorMessage);
 		NSMutableDictionary *errorDetail = [NSMutableDictionary dictionary];
 		[errorDetail setValue:@"Unable to compact files." forKey:NSLocalizedDescriptionKey];
-		[errorDetail setValue:errorMessage forKey:NSLocalizedFailureReasonErrorKey];
+		[errorDetail setValue:@"Unable to compact files.  Verify the syntax of your includes and try again."
+					   forKey:NSLocalizedRecoverySuggestionErrorKey];
+		// [errorDetail setValue:errorMessage forKey:NSLocalizedFailureReasonErrorKey];
 		*outError = [NSError errorWithDomain:@"compact" code:1 userInfo:errorDetail];
 	}
 	
@@ -116,6 +119,7 @@
 	// DLog(@"ext: %@, fileType: %@", ext, fileType);
 	if (fileType == nil) {
 		fileType = [NSString stringWithString:ext];
+		[self _setDisplayName:[NSString stringWithFormat:@"%@.%@",[self displayName],fileType]];
 	}
 	if ([self checkFileType:url]) {
 		fileType = [NSString stringWithString:ext];
