@@ -72,7 +72,7 @@
 	[self hideLoading];
 	
 	if (!result && outError != NULL) {
-		NSLog(@"Compact Error: @%", errorMessage);
+		NSLog(@"Compact Error: %@", errorMessage);
 		NSMutableDictionary *errorDetail = [NSMutableDictionary dictionary];
 		[errorDetail setValue:@"Unable to compact files." forKey:NSLocalizedDescriptionKey];
 		[errorDetail setValue:@"Unable to compact files.  Verify the syntax of your includes and try again."
@@ -116,7 +116,6 @@
 
 - (BOOL)addFile:(NSURL *)url {
 	NSString *ext = [[url pathExtension] lowercaseString];
-	// DLog(@"ext: %@, fileType: %@", ext, fileType);
 	if (fileType == nil) {
 		fileType = [NSString stringWithString:ext];
 		[self _setDisplayName:[NSString stringWithFormat:@"%@.%@",[self displayName],fileType]];
@@ -197,9 +196,9 @@
 	NSArray *fileArray = [[info draggingPasteboard] propertyListForType:NSFilenamesPboardType];
 	NSDragOperation dragOperation = [info draggingSourceOperationMask];
 	
-	DLog(@"pasteboard data %@",fileArray);
-	DLog(@"drag operation %i / %i",dragOperation,operation);
-	DLog(@"row %i",row);
+	// DLog(@"pasteboard data %@",fileArray);
+	// DLog(@"drag operation %i / %i",dragOperation,operation);
+	// DLog(@"row %i",row);
 	
 	if (dragOperation & NSDragOperationPrivate) {
 		NSInteger i;
@@ -212,7 +211,7 @@
 		}
 	} else if (dragOperation & NSDragOperationCopy) {
 		for (NSString *path in fileArray) {
-			[self addFile:[NSURL URLWithString:path]];
+			[self addFile:[NSURL fileURLWithPath:path]];
 			[files moveObjectFromIndex:([files count] - 1) toIndex:row];
 			row++;
 		}
@@ -228,7 +227,7 @@
 		return NSDragOperationNone;
 	}
 	for (NSString *path in fileArray) {
-		if (![self checkFileType:[NSURL URLWithString:path]])
+		if (![self checkFileType:[NSURL fileURLWithPath:path]])
 			return NSDragOperationNone;
 	}
 	return [info draggingSourceOperationMask];
