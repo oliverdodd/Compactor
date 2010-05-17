@@ -35,7 +35,8 @@ fi
 files=$*
 # combine files ----------------------------------------------------------------
 # echo "combining files"
-cat $files > $ofile
+# echo "cat $files > $ofile"
+cat $files > "$ofile"
 # compress results -------------------------------------------------------------
 # echo "running java -jar $yuipath --type $type -o $ofile $ofile"
 java -jar $yuipath --type $type -o "$ofile" "$ofile"

@@ -10,6 +10,7 @@
 #import "Compactor.h"
 
 @interface Compactor (Private)
+- (BOOL)cat:(NSArray *)paths to:(NSString *)outPath;
 - (void)finishedTask:(NSNotification *)aNotification;
 @end
 
@@ -26,34 +27,46 @@
 	return self;
 }
 
--(BOOL)compress:(NSString *)outPath error:(NSString **)errorMessage {
-	// args
-	NSMutableArray *args = [NSMutableArray arrayWithObjects:@"compact.sh",@"-t",type,@"-o",outPath,nil];
-	if (charset != nil) {
-		[args addObject:@"-charset"];
-		[args addObject:charset];
+- (BOOL)cat:(NSArray *)paths to:(NSString *)outPath {
+	// out
+	FILE *outFile = fopen([outPath UTF8String],"w");
+	if (outFile == NULL){
+		return NO;
 	}
-	[args addObjectsFromArray:files];
-	
+	// files
+	FILE *file;
+	char c;
+	for(NSString *path in paths){
+		file = fopen([path UTF8String],"r");
+		if (file == NULL){
+			return NO;
+		}
+		while ((c=fgetc(file)) != EOF)
+			fputc(c,outFile);
+		fclose(file);
+	}
+	fclose(outFile);
+	return YES;
+}
+
+- (BOOL)compress:(NSString *)outPath error:(NSString **)errorMessage {
+	// combine
+	if (![self cat:files to:outPath]) {
+		*errorMessage = @"Unable to combine files";
+		return NO;
+	}
+	// compress
+	NSMutableArray *args = [NSMutableArray arrayWithObjects:@"compress.sh",@"-t",type,outPath,nil];
+	// if (charset != nil) {
+	// 	[args addObject:@"-charset"];
+	// 	[args addObject:charset];
+	// }
 	// command
 	command = [[NSTask alloc] init];
 	[command setCurrentDirectoryPath:[[NSBundle mainBundle]resourcePath]];
 	[command setLaunchPath:@"/bin/sh"];
 	[command setArguments:args];
-	
-	// io
-    [command setStandardInput:[NSFileHandle fileHandleWithNullDevice]];
-	NSPipe *outputPipe = [NSPipe pipe];
-    [command setStandardOutput: outputPipe];
-	[command setStandardError: outputPipe];
-    NSFileHandle *outputFileHandle = [outputPipe fileHandleForReading];
-	
-	// run
-	DLog(@"running command: %@ %@",[command launchPath],[command arguments]);
-	[command launch];
-	// synchronous
-	*errorMessage = [[NSString alloc] initWithData:[outputFileHandle readDataToEndOfFile] encoding: NSUTF8StringEncoding]; 
-	DLog(@"output: %@",*errorMessage);
+	*errorMessage = [command launchSynchronous];
 	
 	return [*errorMessage length] == 0;
 }

@@ -22,6 +22,8 @@
 		C4BA9D28119783A90019FB0E /* compactor.png in Resources */ = {isa = PBXBuildFile; fileRef = C4BA9D25119783A90019FB0E /* compactor.png */; };
 		C4BA9D29119783A90019FB0E /* compactor256.png in Resources */ = {isa = PBXBuildFile; fileRef = C4BA9D26119783A90019FB0E /* compactor256.png */; };
 		C4BA9E59119B8E3F0019FB0E /* NSMutableArray+Move.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BA9E58119B8E3F0019FB0E /* NSMutableArray+Move.m */; };
+		C4D53A4E11A0E0350009042E /* NSTask+LaunchSynchronous.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D53A4D11A0E0350009042E /* NSTask+LaunchSynchronous.m */; };
+		C4D53A6E11A0E6DE0009042E /* compress.sh in Resources */ = {isa = PBXBuildFile; fileRef = C4D53A6D11A0E6DE0009042E /* compress.sh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,9 @@
 		C4BA9D26119783A90019FB0E /* compactor256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compactor256.png; sourceTree = "<group>"; };
 		C4BA9E57119B8E3F0019FB0E /* NSMutableArray+Move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Move.h"; sourceTree = "<group>"; };
 		C4BA9E58119B8E3F0019FB0E /* NSMutableArray+Move.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Move.m"; sourceTree = "<group>"; };
+		C4D53A4C11A0E0350009042E /* NSTask+LaunchSynchronous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTask+LaunchSynchronous.h"; sourceTree = "<group>"; };
+		C4D53A4D11A0E0350009042E /* NSTask+LaunchSynchronous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTask+LaunchSynchronous.m"; sourceTree = "<group>"; };
+		C4D53A6D11A0E6DE0009042E /* compress.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = compress.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +165,7 @@
 		C4BA9D2A119783B10019FB0E /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				C4D53A6D11A0E6DE0009042E /* compress.sh */,
 				C4BA9CFF1197693E0019FB0E /* compact.sh */,
 				C4BA9D001197693E0019FB0E /* yuicompressor-2.4.2.jar */,
 			);
@@ -180,6 +186,8 @@
 			children = (
 				C4BA9E57119B8E3F0019FB0E /* NSMutableArray+Move.h */,
 				C4BA9E58119B8E3F0019FB0E /* NSMutableArray+Move.m */,
+				C4D53A4C11A0E0350009042E /* NSTask+LaunchSynchronous.h */,
+				C4D53A4D11A0E0350009042E /* NSTask+LaunchSynchronous.m */,
 			);
 			name = ObjC;
 			sourceTree = "<group>";
@@ -236,6 +244,7 @@
 				C4BA9D27119783A90019FB0E /* compactor.icns in Resources */,
 				C4BA9D28119783A90019FB0E /* compactor.png in Resources */,
 				C4BA9D29119783A90019FB0E /* compactor256.png in Resources */,
+				C4D53A6E11A0E6DE0009042E /* compress.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +260,7 @@
 				C4BA9CBD11975B7F0019FB0E /* AppDelegate.m in Sources */,
 				C4BA9CC311975F200019FB0E /* Compactor.m in Sources */,
 				C4BA9E59119B8E3F0019FB0E /* NSMutableArray+Move.m in Sources */,
+				C4D53A4E11A0E0350009042E /* NSTask+LaunchSynchronous.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

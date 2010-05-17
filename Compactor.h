@@ -8,7 +8,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
+#import "NSTask+LaunchSynchronous.h"
 
 @interface Compactor : NSObject {
 	NSArray *files;
