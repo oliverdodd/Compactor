@@ -13,14 +13,14 @@
 - (NSString *)launchSynchronous {
 	// io
     [self setStandardInput:[NSFileHandle fileHandleWithNullDevice]];
-	NSPipe *outputPipe = [NSPipe pipe];
-    [self setStandardOutput: outputPipe];
-	[self setStandardError: outputPipe];
-    NSFileHandle *outputFileHandle = [outputPipe fileHandleForReading];
+	NSPipe *pipe = [NSPipe pipe];
+    [self setStandardOutput: pipe];
+	[self setStandardError: pipe];
+    NSFileHandle *pipeFile = [pipe fileHandleForReading];
 	//launch
 	[self launch];
 	// synchronous output
-	return [[[NSString alloc] initWithData:[outputFileHandle readDataToEndOfFile] 
+	return [[[NSString alloc] initWithData:[pipeFile readDataToEndOfFile] 
 								  encoding:NSUTF8StringEncoding] autorelease];
 }
 
